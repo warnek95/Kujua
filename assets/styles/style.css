@@ -9,7 +9,7 @@ body{
 
 }
 a {
-  font-size : 20px;
+  font-size : 18px;
   color :  #fff;
   text-decoration:none;
 }
@@ -27,7 +27,7 @@ a:hover {
   color : #000;
   position :fixed;
   z-index : 10;
-  font-size: 16px;
+  font-size: 1px;
   background-image : url(/images/fond2.jpg)	;
 }
 
@@ -99,22 +99,16 @@ a:hover {
   opacity : 0.9;
   background-color: #1E2630;
 
-
-
 }
 
 .priorvideoright {
   padding : 10px;
-
   margin-top : 40px;
   height : 400px;
   width: 300px;
   background-color: #E1E7ED;
   background-image : url(/images/fond2.jpg)	;
-
-
-
-
+  margin-left: -10px;
 }
 
 .priorvideoright2 {
