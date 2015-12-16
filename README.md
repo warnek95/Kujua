@@ -1,3 +1,3 @@
-# Kujua
+# ComeStream
 
-a [Sails](http://sailsjs.org) application
+Plateforme de streaming en ligne
