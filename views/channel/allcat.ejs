@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kujua</title>
+
+  <link href="/styles/titillium.css" rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/index/indexModule.js"></script>
+  <script src="/js/channel/channelModule.js"></script>
+  <script src="/js/channel/channelController.js"></script>
+  <script src="/js/index/logController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+  <script src="/js/pophover.js"></script>
+
+
+</head>
+
+<body ng-app="indexModule" ng-controller="indexController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" ng-controller="logController" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <form action="/channel/show" method="post">
+          <input type="search" name="query"
+                 class="form-control"
+                 placeholder="Rechercher" />
+          <input hidden="hidden" type="submit" value="rechercher"/>
+        </form>
+      </div>
+  </div>
+</div>
+<div class="cat ">
+  <!--<div class="sidebar headermargin">-->
+    <!--<div class="input-group row">-->
+      <!--<button id="show" class="btn btn-primary">Préférences</button><br /><br />-->
+      <!--<p>-->
+        <!--Vous suivez :-->
+        <!--<br />-->
+        <!--Nous vous recommandons ces catégories :-->
+        <!--<br >-->
+        <!--Voir plus de chaine :-->
+        <!--<br />-->
+        <!--Accedez à votre profil :<br/> <br />-->
+        <!--<button id="hide" class="btn btn-danger">Cacher</button><br/><br />-->
+    <!--</div>-->
+    <!--</p>-->
+  <!--</div>-->
+  <div class="container   ">
+    <div class="headermargin"></div>
+    <h1> Toute les catégories</h1>  Sélèctionnez une catégorie
+    <div class="">
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/cours"> <img src="/images/cours.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/tourisme"> <img src="/images/tourisme.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/immobilier"> <img src="/images/immobilier.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/mode"> <img src="/images/mode.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/finance"> <img src="/images/finance.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/automobile"> <img src="/images/automobile.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/telecom"> <img src="/images/telecom.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/art"> <img src="/images/art.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/critique"> <img src="/images/critique.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/sport"> <img src="/images/sport.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/decouverte"> <img src="/images/decouverte.jpg" class="img"/></a>
+      </div>
+      <div class="col-lg-3 arrondi">
+        <a href="/channel/show/expert"> <img src="/images/expert.jpg" class="img"/></a>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+</body>
+
+<script>
+  $(document).ready(function(){
+    $("#hide").click(function(){
+      $("p").hide();
+    });
+    $("#show").click(function(){
+      $("p").show();
+    });
+  });
+</script>
+
+</html>
+

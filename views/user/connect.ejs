@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kujua</title>
+
+  <link href="/styles/titillium.css" rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/index/indexModule.js"></script>
+  <script src="/js/index/indexController.js"></script>
+  <script src="/js/index/logController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+  <script src="/js/pophover.js"></script>
+
+</head>
+
+<body ng-app="indexModule" ng-controller="logController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <form action="/channel/show" method="post">
+          <input type="search" name="query"
+                 class="form-control"
+                 placeholder="Rechercher" />
+          <input hidden="hidden" type="submit" value="rechercher"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" >
+  <div class ="col-lg-10 headermargin">
+    <br />
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <h3> Connectez vous</h3>
+      </div>
+      <form class="form" role="form" ng-submit="submitLogInForm()" name="logInForm">
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Email</span>
+            <input type="text" class="form-control" placeholder="Email" name="email" ng-model="email">
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Mot de passe</span>
+            <input type="password" class="form-control" placeholder="Mot de passe" name="password" ng-model="password">
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="input-group">
+            <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+            <input type="submit" class="form-control" placeholder="Valider" >
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br />
+</body>
+
+</html>

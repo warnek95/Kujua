@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kujua</title>
+
+  <link href="/styles/titillium.css" rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/index/indexModule.js"></script>
+  <script src="/js/channel/channelModule.js"></script>
+  <script src="/js/channel/channelController.js"></script>
+  <script src="/js/index/logController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+  <script src="/js/pophover.js"></script>
+
+
+</head>
+
+<body ng-app="indexModule" ng-controller="indexController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" ng-controller="logController" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <form action="/channel/show" method="post">
+          <input type="search" name="query"
+                 class="form-control"
+                 placeholder="Rechercher" />
+          <input hidden="hidden" type="submit" value="rechercher"/>
+        </form>
+      </div>
+  </div>
+</div>
+<div class="cat ">
+  <!--<div class="sidebar headermargin">-->
+    <!--<div class="input-group row">-->
+      <!--<button id="show" class="btn btn-primary">Préférences</button><br /><br />-->
+      <!--<p>-->
+        <!--<span class="input-group-addon">Changer  de Catégorie</span>-->
+        <!--<select name="language" class="form-control">-->
+          <!--<option value=""></option>-->
+          <!--<option value="arabic">Cat 1</option>-->
+          <!--<option value="english">Cat 2</option>-->
+        <!--</select>-->
+
+        <!--Vous suivez :-->
+        <!--<br />-->
+        <!--Nous vous recommandons ces catégories :-->
+        <!--<br >-->
+        <!--Voir plus de chaine :-->
+        <!--<br />-->
+        <!--Accedez à votre profil :<br/> <br />-->
+        <!--<button id="hide" class="btn btn-danger">Cacher</button><br/><br />-->
+    <!--</div>-->
+    <!--</p>-->
+  <!--</div>-->
+  <div class="container">
+    <div class="headermargin"></div>
+    <h1> Consultant en ligne suggérer</h1>  Consultant en ligne dans la catégorie
+    <div class="">
+      <div class="row">
+        <div class="channelgroup2">
+          <!--<div class="col-lg-3 ">-->
+            <!--<div class="channelvignette">-->
+              <!--<a href="video.html" > <img src="/images/1.jpg" width="205px" /></a>-->
+              <!--<h3> Channel 1 </h3>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-3 ">-->
+            <!--<div class="channelvignette">-->
+              <!--<img src="/images/1.jpg" width="205px" />-->
+              <!--<h3> Channel 1 </h3>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-3 ">-->
+            <!--<div class="channelvignette">-->
+              <!--<img src="/images/1.jpg" width="205px" />-->
+              <!--<h3> Channel 1 </h3>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+          <% _.each(channels, function(channel) { %>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <a href="/channel/see/<%= channel.owner %>" > <img src="<%= channel.picture %>" width="250px" height="140px" /></a>
+              <h5> <b>  <%= channel.name %> <span class="btn-lg label label-danger">  <%= channel.category %>
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <% }) %>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <a href="video.html" > <img src="/images/chan1.jpg" width="250px" height="140px" /></a>
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <a href="video.html" > <img src="/images/chan1.jpg" width="250px" height="140px" /></a>
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan2.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-success"> Découverte
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan3.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan4.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-primary"> Finance
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan5.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-default"> Sports
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan6.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-info"> Physique
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan7.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-default"> Sports
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan8.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan9.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan10.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-success"> Art
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan11.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-primary"> Finance
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan12.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-success"> Art
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan13.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-warning"> Immobilier
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan14.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan15.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-danger"> Tourisme
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+          <div class="col-lg-3 ">
+            <div class="channelvignette">
+              <img src="/images/chan16.jpg" width="250px" height="140px" />
+              <h5> <b> Channel <span class="btn-lg label label-info"> Maths
+                        </span></b>  <br /> </h5>1000 spectareurs sur channel
+            </div>
+          </div>
+
+          <br /><br /> <br /><br />
+
+        </div>
+      </div>
+      <!--<div class="row" >-->
+      <!--<div class="channelgroup2">-->
+      <!--<h1 class="titlechannel"> Autres : </h1>-->
+      <!--<br />-->
+      <!--<% _.each(channels, function(channel) { %>-->
+      <!--<div class="col-lg-3 ">-->
+        <!--<div class="channelvignette">-->
+          <!--<a href="/channel/show?id=<%= channel.id %>" > <img src="/images/1.jpg" width="250px" height="140px" /></a>-->
+          <!--<h5> <b>  <%= channel.name %> <span class="btn-lg label label-danger">  <%= channel.category %>-->
+                        <!--</span></b>  <br /> </h5>1000 spectareurs sur channel-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<% }) %>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+</body>
+
+<script>
+  $(document).ready(function(){
+    $("#hide").click(function(){
+      $("p").hide();
+    });
+    $("#show").click(function(){
+      $("p").show();
+    });
+  });
+</script>
+
+</html>
+

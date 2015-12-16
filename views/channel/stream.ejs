@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kujua</title>
+
+  <link href="/styles/titillium.css" rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/index/indexModule.js"></script>
+  <script src="/js/channel/channelModule.js"></script>
+  <script src="/js/channel/channelController.js"></script>
+  <script src="/js/index/logController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+  <script src="/js/pophover.js"></script>
+  <script src="/js/dependencies/socket.io.js"></script>
+  <script type="text/javascript" src="/js/dependencies/easyrtc.js"></script>
+  <script type="text/javascript" src="/js/mylogic.js"></script>
+
+
+</head>
+
+<body ng-app="channelModule" ng-controller="channelController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" ng-controller="logController" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-6 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <input type="search"
+               class="form-control"
+               placeholder="Rechercher" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" >
+
+  <div class="row headermargin">
+    <div class="col-lg-7">
+      <div class="video" >
+        <div id="Title" >	<h2> <%= channel.name %> </h2> </div>
+        </br><br />
+        <div class="videolecteur">
+          <!--<video width="680" height="422"  controls src="video.ogv">Ici la description alternative</video>-->
+          <video  style="float:left" id="self" width="680" height="422" controls></video>
+          <div hidden style="position:relative;float:left;width:300px">
+            <video id="caller" width="300" height="200"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="chat">
+        <div class="chatheader">
+          Chat
+
+        </div>
+        <div class="barre">
+
+        </div>
+        <div class="chatroom">
+          Bienvenue dans le chat...
+        </div>
+        <div class="barre2">
+
+        </div>
+
+        <div class="answer">
+          <input type="text" class="form-control input"  />
+          <button type="button" class="btn btn-primary btn-sm buttonchat">Discussion Instantanée</button>
+        </div>
+      </div>
+    </div>
+    <% if (session.User) { %>
+    <% if (session.User.pseudo == channel.owner) { %>
+      <div class="reglage">
+        <div class="row">
+          <form >
+            <div class="col-lg-6">
+              <b> Intitulé de la vidéo  </b>:   <input class="form-control" id="newTitle" type="text"><br />
+            </div>
+            <div class="col-lg-6">
+              <b> langue de diffusion  </b>:
+              <div class="form-group">
+                <select class="form-control" id="sel1">
+                  <option>Français</option>
+                  <option>Anglais</option>
+                  <option>Chinois</option>
+                  <option>Espagnol	</option>
+                </select>
+              </div>
+              <br />
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <b> Choisir une catégorie  </b>:
+            <div class="form-group">
+              <select class="form-control" id="sel1">
+                <option>Tourisme</option>
+                <option>Cat</option>
+              </select>
+            </div>
+            <br />
+          </div>
+          <div class="col-lg-6">
+            <button onclick="my_init('<%= session.User.pseudo %>','<%= channel._id %>')" class="btn btn-primary">Démarrer la chaine</button>
+            <button onclick="stop()" class="btn btn-danger">Eteindre la chaine</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <span class="label label-default">Bloquer le chat : &nbsp;&nbsp; &nbsp</span>
+            <label class="checkbox-inline"><input type="checkbox" value="">Boquer </label>
+
+            <!--<span class="label label-success">Activer le partage d'écran : &nbsp;&nbsp; &nbsp</span>-->
+            <!--<label class="checkbox-inline"><input type="checkbox" value="">Activer </label>-->
+
+          </div>
+          <div class="col-lg-6">
+            <a href="videostreamer.html" class="btn btn-primary" role="button">Modifier</a>
+          </div>
+        </div>
+      </div>
+    <% } %>
+    <% } %>
+
+  </div>
+</div>
+<br /><br /> <br /><br />
+
+<div class="division">
+  <div class="titrechannel3">
+    Chaine Similaire  <button type="button" class="btn btn-primary "></button>
+  </div>
+</div>
+
+<div class="profil">
+
+</div>
+
+<div class="footer">
+
+</div>
+
+</body>
+
+</html>

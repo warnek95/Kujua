@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kujua</title>
+
+  <link href="/styles/titillium.css" rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/index/indexModule.js"></script>
+  <script src="/js/channel/channelModule.js"></script>
+  <script src="/js/channel/channelController.js"></script>
+  <script src="/js/index/logController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+  <script src="/js/pophover.js"></script>
+
+
+</head>
+
+<body ng-app="channelModule" ng-controller="channelController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" ng-controller="logController" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <form action="/channel/show" method="post">
+          <input type="search" name="query"
+                 class="form-control"
+                 placeholder="Rechercher" />
+          <input hidden="hidden" type="submit" value="rechercher"/>
+        </form>
+      </div>
+  </div>
+</div>
+</div>
+<div class="container" >
+  <div class ="col-lg-10 headermargin">
+    <br />
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <h3> Ajouter une chaine</h3>
+      </div>
+      <form name="channelForm" ng-submit="submitChannelForm()" enctype="multipart/form-data">
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Nom </span>
+            <input type="text" class="form-control" placeholder="Nom" ng-model="name" id="catname">
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Description</span>
+            <textarea rows="3" type="textarea" class="form-control" placeholder="..." ng-model="description" id="catdescription"></textarea>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Choisir une Catégorie</span>
+            <select name="language" ng-model="category" class="form-control">
+              <% _.each(categories, function(category) { %>
+                <option value="<%= category.name %>" > <%= category.name %> </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon " id="basic-addon1">Choisir la nature de la chaine</span>
+            <select ng-model="free" class="form-control">
+              <option value="free">Gratuite</option>
+              <option value="priced">Payante</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon " id="basic-addon1">Choisir l'accessibilité de la chaine</span>
+            <select ng-model="public" class="form-control">
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon " id="basic-addon1">Choisir une image</span>
+            <input type="file" file-model="picture">
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="input-group">
+            <input type="submit" class="btn btn-info" value="Ajouter ma chaine" id="ok" ng-disabled="signup.$invalid">
+          </div>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      </form>
+    </div>
+  </div>
+</div>
+<br />
+</body>
+
+</html>

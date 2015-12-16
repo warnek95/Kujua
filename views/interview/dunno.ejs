@@ -1,0 +1,32 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head lang="en">-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title></title>-->
+    <!--<script src="/js/dependencies/socket.io.js"></script>-->
+<!--</head>-->
+<!--<script>-->
+  <!--var socket = io.connect('http://localhost:1337');-->
+  <!--socket.on('news', function (data) {-->
+    <!--console.log(data);-->
+    <!--socket.emit('my other event', { my: 'data' });-->
+  <!--});-->
+<!--</script>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script src="/js/dependencies/socket.io.js"></script>
+  <script type="text/javascript" src="/js/dependencies/easyrtc.js"></script>
+  <script type="text/javascript" src="/js/mylogic2.js"></script>
+</head>
+<body onload="my_init()">
+<div id="otherClients"> </div>
+<video style="float:left" id="self" width="300" height="200" muted="muted"></video>
+<video style="float:left" id="caller" width="300" height="200"></video>
+</body>
+</html>

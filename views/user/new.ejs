@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Kujua</title>
+  <link href='/styles/titillium.css' rel='stylesheet' type='text/css'>
+  <link href="/styles/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/build/ang.css" rel="stylesheet">
+  <script src="/js/build/ang.js"></script>
+  <script src="/js/angular-animate.js"></script>
+  <script src="/js/user/userModule.js"></script>
+  <script src="/js/user/newUserController.js"></script>
+  <script src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <!--<script src="angular-toastr.tpls.min.js"></script>-->
+</head>
+<body ng-app="userModule" ng-controller="newUserController">
+<div class="header" id="header">
+  <div class="titleheader col-lg-1">  <a href="/"><h3> <img src="/images/kujua2.png"  style="width:115px;"/>  </h3></a></div>
+
+  <div class="row connexion">
+    <% if (!session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/connect"> Connexion </a> <br />
+    </div>
+    <div class="col-lg-2" >
+      <a href="/user/new"> &nbsp;&nbsp;&nbsp;&nbsp;Inscription </a> <br />
+    </div>
+    <% } %>
+    <% if (session.authenticated) { %>
+    <div class="col-lg-2">
+      <a href="/user/show"> Profil </a> <br />
+    </div>
+    <div class="col-lg-2" ng-controller="logController" >
+      <input type="hidden" ng-bind="_csrf='<%= _csrf %>'" name="_csrf" value="<%= _csrf %>" />
+      <a ng-click="submitLogOutForm()" href=""> Déconnexion <i class=""></i></a><br />
+    </div>
+    <% } %>
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="right-inner-addon">
+        <i class="icon-search"></i>
+        <form action="/channel/show" method="post">
+          <input type="search" name="query"
+                 class="form-control"
+                 placeholder="Rechercher" />
+          <input hidden="hidden" type="submit" value="rechercher"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" >
+  <div class ="col-lg-10 headermargin">
+    <br />
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <h3> INSCRIVEZ VOUS</h3>
+      </div>
+      <form method="post" name="signup" ng-submit="submitSignupForm()">
+        <div class="panel-body" ng-class="{'has-error':signup.lastName.$invalid && signup.lastName.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Nom</span>
+            <input type="text" class="form-control" placeholder="Nom" name="lastName" ng-model="lastName" ng-maxlength="50" required>
+          </div>
+          <span class="help-block has-error" ng-if="signup.lastName.$dirty">
+            <span ng-show="signup.lastName.$error.required">Le nom est requis.</span>
+            <span ng-show="signup.lastName.$error.maxlength">Le nom doit avoir moins de 50 caractères.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':signup.firstName.$invalid && signup.firstName.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Prénom</span>
+            <input type="text" class="form-control" placeholder="Prénom" name="firstName" ng-model="firstName" ng-maxlength="50" required>
+          </div>
+          <span class="help-block has-error" ng-if="signup.firstName.$dirty">
+            <span ng-show="signup.firstName.$error.required">Le prénom est requis.</span>
+            <span ng-show="signup.firstName.$error.maxlength">Le prénom doit avoir moins de 50 caractères.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':(signup.pseudo.$invalid && signup.pseudo.$dirty) || errPseudo}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Pseudo</span>
+            <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" ng-model="pseudo" ng-maxlength="50" required>
+          </div>
+          <span class="help-block has-error" ng-show="errPseudo">Le pseudo {{unavaiblePseudo}} est déjà utilisé.</span>
+          <span class="help-block has-error" ng-if="signup.pseudo.$dirty">
+            <span ng-show="signup.pseudo.$error.required">Le pseudo est requis.</span>
+            <span ng-show="signup.pseudo.$error.maxlength">Le pseudo doit avoir moins de 50 caractères.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':(signup.email.$invalid && signup.email.$dirty) || errEmail}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Email</span>
+            <input type="email" class="form-control" placeholder="Email" name="email" ng-model="email" required>
+          </div>
+          <span class="help-block has-error" ng-show="errEmail">L'adresse email {{unavaibleEmail}} est déjà utilisée.</span>
+          <span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.email.$error.required">L'adresse email est requise.</span>
+            <span ng-show="signup.email.$error.email">L'adresse email n'est pas valide.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':signup.emailConfirmation.$invalid && signup.emailConfirmation.$dirty && signup.emailConfirmation.$error.errorCompareTo}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Confirmation Email</span>
+            <input type="email" compare-to="email" class="form-control" placeholder="Confirmation Email" name="emailConfirmation" ng-model="emailConfirmation" required>
+          </div>
+          <span class="help-block has-error" ng-if="signup.emailConfirmation.$dirty">
+            <span ng-show="signup.emailConfirmation.$error.required">La confirmation de l'adresse email est requise.</span>
+            <span ng-show="signup.emailConfirmation.$error.errorCompareTo">Les champs emails doivent être identiques.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':signup.password.$invalid && signup.password.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Mot de passe</span>
+            <input type="password" class="form-control" placeholder="Mot de passe" name="password" ng-model="password" ng-minlength="6" required>
+          </div>
+          <span class="help-block has-error" ng-if="signup.password.$dirty">
+            <span ng-show="signup.password.$error.required">Le mot de passe est requis.</span>
+            <span ng-show="signup.password.$error.minlength">Le mot de passe doit avoir plus de 6 lettres.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':signup.passwordConfirmation.$invalid && signup.passwordConfirmation.$dirty && signup.passwordConfirmation.$error.errorCompareTo}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Confirmation Mot de passe</span>
+            <input type="password" compare-to="password" class="form-control" placeholder="Confirmation Mot de passe" name="passwordConfirmation" ng-model="passwordConfirmation" required>
+          </div>
+          <span class="help-block has-error" ng-if="signup.passwordConfirmation.$dirty">
+            <span ng-show="signup.passwordConfirmation.$error.required">La confirmation du mot de passe est requis.</span>
+            <span ng-show="signup.passwordConfirmation.$error.errorCompareTo">Les champs mot de passe doivent être identiques.</span>
+          </span>
+        </div>
+        <div class="panel-body" ng-class="{'has-error':signup.status.$invalid && signup.status.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Statut</span>
+            <select class="form-control" name="status" ng-model="status">
+              <option value="consultant">Consultant</option>
+              <option value="viewer">Spectateur</option>
+            </select>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <span class="input-group-addon " id="basic-addon1">Choisir une image</span>
+            <input type="file" file-model="picture">
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <input type="submit" class="form-control" placeholder="Valider" id="ok" ng-disabled="signup.$invalid">
+          </div>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      </form>
+    </div>
+  </div>
+</div>
+<br />
+</body>
+</html>

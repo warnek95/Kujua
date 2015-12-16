@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kujua</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+    <!--  
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage 
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+        
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+            
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap-combined.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/build/ang.css">
+    <link rel="stylesheet" href="/styles/easyrtc.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/landing.css">
+    <link rel="stylesheet" href="/styles/ninja-slider.css">
+    <link rel="stylesheet" href="/styles/src/ang.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/thumbnail-slider.css">
+    <link rel="stylesheet" href="/styles/titillium.css">
+    <!--STYLES END-->
+  </head>
+
+  <body>
+    <%- body %>
+
+
+
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+        
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+    
+    <!--TEMPLATES END-->
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can 
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+      
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+          
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dependencies/demo_audio_only.js"></script>
+    <script src="/js/dependencies/easyrtc.js"></script>
+    <script src="/js/dependencies/socket.io.js"></script>
+    <script src="/js/RTCMultiConnection.js"></script>
+    <script src="/js/angular-animate.js"></script>
+    <script src="/js/angular-toastr.tpls.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/build/ang.js"></script>
+    <script src="/js/channel/channelController.js"></script>
+    <script src="/js/channel/channelModule.js"></script>
+    <script src="/js/index/indexController.js"></script>
+    <script src="/js/index/indexModule.js"></script>
+    <script src="/js/index/logController.js"></script>
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <script src="/js/mylogic.js"></script>
+    <script src="/js/mylogic2.js"></script>
+    <script src="/js/mylogic3.js"></script>
+    <script src="/js/ninja-slider.js"></script>
+    <script src="/js/pophover.js"></script>
+    <script src="/js/prettify/jquery-1.9.1.min.js"></script>
+    <script src="/js/prettify/jquery.js"></script>
+    <script src="/js/prettify/jquery.min.js"></script>
+    <script src="/js/prettify/lang-css.js"></script>
+    <script src="/js/prettify/lang-sql.js"></script>
+    <script src="/js/prettify/lang-vhdl.js"></script>
+    <script src="/js/prettify/lang-yaml.js"></script>
+    <script src="/js/prettify/loadAndFilter.js"></script>
+    <script src="/js/prettify/prettify.js"></script>
+    <script src="/js/src/ang.js"></script>
+    <script src="/js/thumbnail-slider.js"></script>
+    <script src="/js/ui-bootstrap-tpls-0.3.0.js"></script>
+    <script src="/js/user/newUserController.js"></script>
+    <script src="/js/user/userModule.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>
